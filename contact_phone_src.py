@@ -1,3 +1,15 @@
+#ATEFE-JELVE__THURSDAY14-18
+#FINAL_PROJECT_CONTACT
+
+print('========================================================================')
+print('======================                             =====================')
+print('======================   PRODUCT BY ATEFE S JELVE  =====================')
+print('======================    A.JELVE.69@GMAIL.COM     =====================')
+print('======================   FINAL PROJECT "CONTACT"   =====================')
+print('======================                             =====================')
+print('========================================================================\n')
+
+
 import sqlite3
 
 def search_contact(action_code):
@@ -18,6 +30,7 @@ def search_contact(action_code):
         for row in result:
             print(*row, sep='               ')
     else :
+        print('                               WARNING                                  ')
         print('                           the name not saved                           ')
         print('                            please try agin                             \n')
     conn.close()
@@ -78,6 +91,7 @@ def update_contact(action_code):
         for row in result:
             print(*row, sep='               ')
     else:
+        print('                               WARNING                                  ')
         print('                           the name not saved                           ')
         print('                            please try agin                             ')
     conn.close()
@@ -91,19 +105,24 @@ def delete_contact(action_code):
     search_query = f'select contact_id,name,family,tel_number from contact where name like "{name_contact}"'
     cursor.execute(search_query)
     result = cursor.fetchall()
-    print('========================================================================')
-    print(' id      |       name       |        family     |         number        ')
-    print('========================================================================')
-    for row in result:
-        print(*row, sep='               ')
-    print(' ')
-    index_delete = (input('enter your id contact you want delete:\n\n'))
-    delete_query = f'delete from contact where name =="{name_contact}" and contact_id == {index_delete}'
-    cursor.execute(delete_query)
-    conn.commit()
+    if len(result) != 0:
+        print('========================================================================')
+        print(' id      |       name       |        family     |         number        ')
+        print('========================================================================')
+        for row in result:
+            print(*row, sep='               ')
+        print(' ')
+        index_delete = (input('enter your id contact you want delete:\n\n'))
+        delete_query = f'delete from contact where name =="{name_contact}" and contact_id == {index_delete}'
+        cursor.execute(delete_query)
+        conn.commit()
+        print('=======================  your name is delete  ==========================')
+        print('========================================================================\n')
+    else:
+        print('                               WARNING                               ')
+        print('                           the name not saved                           ')
+        print('                            please try agin                             ')    
     conn.close()
-    print('=======================  your name is delete  ==========================')
-    print('========================================================================\n')
 
 def show_all_contact(action_code):
     conn = sqlite3.connect('contact_phone.db')
@@ -134,8 +153,11 @@ while 1 == 1 :
     action_code = int(input('enter number for action : \n\n'))
     list_action=[1,2,3,4,5]
     if action_code not in list_action:
-        print('------- your number you enter is invalid please try again  ----------')
-        print('------------------     select between this list    ------------------')
+        print('========================================================================')
+        print('                               WARNING                               ')
+        print('        your number you enter is invalid please try again            ')
+        print('                       select between this list                      ')
+        print('========================================================================\n')
     elif action_code == 1:
         search_contact(action_code)
     elif action_code == 2:
